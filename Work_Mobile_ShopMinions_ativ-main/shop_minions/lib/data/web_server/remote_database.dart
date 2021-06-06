@@ -9,7 +9,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 class DatabaseRemoveServer {
   static DatabaseRemoveServer helper = DatabaseRemoveServer._createInstance();
   DatabaseRemoveServer._createInstance();
-  String databaseUrl = "http://192.168.137.1:3000/notes";
+  String databaseUrl = "http://192.168.0.104:3000/notes";
   Dio _dio = Dio();
 
   Future<int> insertlogin(Login login) async {
@@ -54,6 +54,13 @@ class DatabaseRemoveServer {
    STREAM
 
   */
+  notify() async {
+    if (_controller != null) {
+      var response = await getLoginList();
+      _controller.sink.add(response);
+    }
+  }
+
   Stream get stream {
     if (_controller == null) {
       _controller = StreamController.broadcast();
@@ -68,13 +75,6 @@ class DatabaseRemoveServer {
     return _controller.stream.asBroadcastStream();
   }
 
-  notify() async {
-    if (_controller != null) {
-      var response = await getLoginList();
-      _controller.sink.add(response);
-    }
-  }
-
   dispose() {
     if (!_controller.hasListener) {
       _controller.close();
@@ -83,8 +83,6 @@ class DatabaseRemoveServer {
   }
 
   static StreamController _controller;
-
-  io(String s, build) {}
 }
 
 void main() async {
