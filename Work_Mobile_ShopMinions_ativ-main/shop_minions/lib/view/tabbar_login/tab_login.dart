@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_minions/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:shop_minions/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:shop_minions/logic/monitor_db/montior_db_bloc.dart';
 import 'package:shop_minions/view/tela_login_atvd4/tela_atvd4.dart';
 import 'package:shop_minions/view/login_list/login_list.dart';
@@ -17,6 +18,7 @@ class MainTelaLogin extends StatelessWidget {
           providers: [
             BlocProvider(create: (_) => MonitorBloc()),
             BlocProvider(create: (_) => ManageLocalBloc()),
+            BlocProvider(create: (_) => ManageRemoteBloc()),
           ],
           child: Scaffold(
             appBar: AppBar(
