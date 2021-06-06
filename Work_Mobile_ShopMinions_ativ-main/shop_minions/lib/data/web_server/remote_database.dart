@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:shop_minions/model/login.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 
 class DatabaseRemoveServer {
   static DatabaseRemoveServer helper = DatabaseRemoveServer._createInstance();
@@ -46,6 +49,42 @@ class DatabaseRemoveServer {
         }));
     return 1;
   }
+
+  /* 
+   STREAM
+
+  */
+  Stream get stream {
+    if (_controller == null) {
+      _controller = StreamController.broadcast();
+
+      Socket socket = io(
+          "http://192.168.137.1:3000",
+          // "https://si700.herokuapp.com/",
+          OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
+              .build());
+      socket.on('invalidate', (_) => notify());
+    }
+    return _controller.stream.asBroadcastStream();
+  }
+
+  notify() async {
+    if (_controller != null) {
+      var response = await getLoginList();
+      _controller.sink.add(response);
+    }
+  }
+
+  dispose() {
+    if (!_controller.hasListener) {
+      _controller.close();
+      _controller = null;
+    }
+  }
+
+  static StreamController _controller;
+
+  io(String s, build) {}
 }
 
 void main() async {
