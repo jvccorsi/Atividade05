@@ -43,8 +43,8 @@ app.post(endpoint, (req, res) => {
     };      
     login.push(note);
     res.send("1");
-
-    //notify();
+    
+    notify();
 });
 //UPDATE
 app.put(`${endpoint}/:id`, (req, res) =>{
@@ -58,7 +58,7 @@ app.put(`${endpoint}/:id`, (req, res) =>{
     login[id] = note;
     res.send("1");
 
-    //notify();
+    notify();
 });
 //DELETE:
 app.delete(`${endpoint}/:id`, (req, res) => {
@@ -67,7 +67,7 @@ app.delete(`${endpoint}/:id`, (req, res) => {
     res.send("1");
 
     // Notificar todos
-    //notify();
+    notify();
 });
 /*
   Criar um socket para notificar usuários das mudanças.
