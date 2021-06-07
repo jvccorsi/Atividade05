@@ -84,17 +84,3 @@ class DatabaseRemoveServer {
 
   static StreamController _controller;
 }
-
-void main() async {
-  DatabaseRemoveServer noteService = DatabaseRemoveServer.helper;
-  /*var response = await noteService.getLoginList();
-  Login login = response[0][0];
-  print(login.email);*/
-
-  Login login = Login();
-  login.email = ("aaa@hotmail.com");
-  login.senha = ("123");
-  // noteService.insertlogin(login);
-  //noteService.updateLogin(0, login);
-  noteService.deleteLogin(1);
-}

@@ -13,10 +13,7 @@ app.get('/', function(req, res){res.send('Hello world')});
   Servidor propriamente dito
 */
 
-const login = [
-    {id: 0, email: "Vinícius Nonato Rodrigues", senha : "Aluno da Unicamp feliz"},
-    {id: 1, email: "Carolina da Silva Sancho", senha : "Aluna da Unicamp não tão feliz"}
-];
+const login = [];
 
 const endpoint = "/notes";
 
