@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_minions/logic/manage_db/manage_db_event.dart';
 import 'package:shop_minions/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:shop_minions/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:shop_minions/logic/monitor_db/monitor_db_state.dart';
 import 'package:shop_minions/logic/monitor_db/montior_db_bloc.dart';
 import 'package:shop_minions/model/login.dart';
@@ -33,17 +34,22 @@ class _LoginListState extends State<LoginList> {
       itemCount: loginList.length,
       itemBuilder: (context, position) {
         return Card(
-          color: Colors.green[300],
+          color: colorLocation[loginList[position].dataLocation],
           elevation: 5,
           child: ListTile(
-            leading: Icon(Icons.people),
+            leading: Icon(iconLocation[loginList[position].dataLocation]),
             title: Text('Nome do usuário: ' + loginList[position].email),
             subtitle: Text('Senha do usuário: ' + loginList[position].senha),
             onTap: () {},
             trailing: GestureDetector(
                 onTap: () {
-                  BlocProvider.of<ManageLocalBloc>(context)
-                      .add(DeleteEvent(loginId: idList[position]));
+                  if (loginList[position].dataLocation == 1) {
+                    BlocProvider.of<ManageLocalBloc>(context)
+                        .add(DeleteEvent(loginId: idList[position]));
+                  } else if (loginList[position].dataLocation == 2) {
+                    BlocProvider.of<ManageRemoteBloc>(context)
+                        .add(DeleteEvent(loginId: idList[position]));
+                  }
                 },
                 child: Icon(Icons.delete)),
           ),

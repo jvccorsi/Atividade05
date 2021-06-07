@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_minions/logic/manage_db/manage_db_event.dart';
 import 'package:shop_minions/logic/manage_db/manage_local_db_bloc.dart';
+import 'package:shop_minions/logic/manage_db/manage_remote_db_bloc.dart';
 import 'package:shop_minions/view/Tab_Bar_layout.dart';
 import 'package:shop_minions/model/login.dart';
 
@@ -89,6 +90,8 @@ class MainTelaAtvd4 extends StatelessWidget {
             if (formKey.currentState.validate()) {
               formKey.currentState.save();
               BlocProvider.of<ManageLocalBloc>(context)
+                  .add(SubmitEvent(login: login_insert));
+              BlocProvider.of<ManageRemoteBloc>(context)
                   .add(SubmitEvent(login: login_insert));
             }
           }),

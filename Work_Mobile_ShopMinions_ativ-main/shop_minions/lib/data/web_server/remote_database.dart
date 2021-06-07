@@ -9,7 +9,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 class DatabaseRemoveServer {
   static DatabaseRemoveServer helper = DatabaseRemoveServer._createInstance();
   DatabaseRemoveServer._createInstance();
-  String databaseUrl = "http://192.168.0.104:3000/notes";
+  String databaseUrl = "http://192.168.0.201:3000/notes";
   Dio _dio = Dio();
 
   Future<int> insertlogin(Login login) async {
@@ -66,7 +66,7 @@ class DatabaseRemoveServer {
       _controller = StreamController.broadcast();
 
       Socket socket = io(
-          "http://192.168.137.1:3000",
+          "http://192.168.0.201:3000",
           // "https://si700.herokuapp.com/",
           OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
               .build());
